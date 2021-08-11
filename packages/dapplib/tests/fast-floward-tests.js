@@ -9,7 +9,7 @@ describe('Flow Dapp Tests', async () => {
         // Setup tasks for tests
         config = DappLib.getConfig();
     });
-
+ 
     after(() => {
         fkill(':3570');
     });
@@ -257,21 +257,29 @@ describe('Flow Dapp Tests', async () => {
         //
         it(`removes a kittyitem from sale`, async () => {
             // 1) add testData1 to call kittyItemsMarketRemoveMarketItem
-
+            let testData1 = {
+                signer: config.accounts[1],
+                itemID: "0"
+            }
             // 2) add testData2 to call kittyItemsMarketReadSaleCollectionLength
-
+            let testData2 = {
+                marketCollectionAddress: config.accounts[1]
+            }
             // 3) add testData3 to call kittyItemsMarketReadSaleCollectionIDs
-
+            let testData3 = {
+                marketCollectionAddress: config.accounts[1]
+            }
             // 4) call kittyItemsMarketRemoveMarketItem with testData1
-
+            await DappLib.kittyItemsMarketRemoveMarketItem(testData1)
             // 5) call kittyItemsMarketReadSaleCollectionLength with testData2 and store the result
-
+            let res1 = await DappLib.kittyItemsMarketReadSaleCollectionLength(testData2)
             // 6) call kittyItemsMarketReadSaleCollectionIDs with testData3 and store the result
-
+            let res2 = await DappLib.kittyItemsMarketReadSaleCollectionIDs(testData3)
             // 7) assert the result from step 5) shows the SaleCollection has length 1
-
+            assert.equal(res1.result, 1, "the sell collection length is not 1")
             // 8) assert the result (an array) from step 6) shows the SaleCollection has 
             // an itemID == 1 in it at index 0
+            assert.equal(res2.result[0], 1, "the sell collection IDs is not 1")
         })
 
         it(`buys a kittyitem`, async () => {
@@ -310,17 +318,40 @@ describe('Flow Dapp Tests', async () => {
         //
         it(`checks both admin and user have correct balances after purchase`, async () => {
             // 1) add testData1 to call kibbleGetBalance for config.accounts[0]
-
+            let testData1 = {
+                address: config.accounts[0]
+            }
             // 2) add testData2 to call kibbleGetBalance for config.accounts[1]
-
+            let testData2 = {
+                address: config.accounts[1]
+            }
             // 3) call kibbleGetBalance with testData1 and store the result
-
+            let res1 = await DappLib.kibbleGetBalance(testData1)
             // 4) call kibbleGetBalance with testData2 and store the result
-
+            let res2 = await DappLib.kibbleGetBalance(testData2)
             // 5) assert the result from step 3) equals 5.0
-
+            assert.equal(res1.result, 5.0, "the account address 0x01cf0e2f2f715450 does not have 5 kibble")
             // 6) assert the result from step 4) equals 25.0
+            assert.equal(res2.result, 25.0, "the account address 0x179b6b1cb6755e31 does not have 25 kibble")
         })
+
+        //w2q8
+		it(`checks if tokens have been burned correctly`, async () => {
+			let testData1 = {
+				amount: '3.0',
+			};
+			let testData2 = {
+				address: config.accounts[0],
+			};
+			
+			await DappLib.kibbleBurnTokens(testData1);
+			
+			let res1 = await DappLib.kibbleGetBalance(testData2);
+			let res2 = await DappLib.kibbleGetSupply({});
+			
+			assert.equal(res1.result, 2.0, 'Admin has incorrect balance');
+			assert.equal(res2.result, 27.0, 'Incorrect total number of Kibble');
+		})
     });
 
 });
