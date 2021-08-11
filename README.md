@@ -17,8 +17,9 @@ Before you proceed with installation, it's important to note that many blockchai
 
 Blockchains known to require WSL: Solana
 
-🔰 open `package.json` file present right under the project root, and in line 18 remove `$npm_config_script`
-🔰 open `/packages/dapplib/src/rythm.js` and change the followings 
+* open `package.json` file present right under the project root, and in line 18 remove `$npm_config_script`.
+* open `/packages/dapplib/src/rythm.js` and change the followings 
+![change](https://github.com/Meharab/kitty-marketplace/blob/master/unknown.png)
 
 # Installation
 
