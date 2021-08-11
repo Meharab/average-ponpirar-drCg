@@ -127,8 +127,14 @@ export default class FastFlowardHarness extends LitElement {
       
         <!-- TODO: Implement this action card -->
         <!-- NOTE: This is a transaction -->
-        <action-card title="DAY 4: Kitty Items Market - Sell Market Item">
-      
+        <action-card title="DAY 4: Kitty Items Market - Sell Market Item" description="This action card sells a Kitty Item" 
+        action="kittyItemsMarketSellMarketItem" method="post" fields="signer itemID price">
+        <account-widget field="signer" label="Signer">
+        </account-widget>
+        <text-widget field="itemID" label="Item ID" placeholder="0">
+        </text-widget>
+        <text-widget field="price" label="Price" placeholder="30.0">
+        </text-widget>
         </action-card>
       
         <action-card title="DAY 4: Kitty Items Market - Remove Market Item"
@@ -141,14 +147,24 @@ export default class FastFlowardHarness extends LitElement {
       
         <!-- TODO: Implement this action card -->
         <!-- NOTE: This is a transaction -->
-        <action-card title="DAY 4: Kitty Items Market - Buy Market Item">
-      
+        <action-card title="DAY 4: Kitty Items Market - Buy Market Item" description="This action card buys a Kitty Item" 
+        action="kittyItemsMarketBuyMarketItem" method="post" fields="signer itemID marketCollectionAddress">
+        <account-widget field="signer" label="Signer">
+        </account-widget>
+        <text-widget field="itemID" label="Item ID" placeholder="0">
+        </text-widget>
+        <account-widget field="marketCollectionAddress" label="Market Collection Adress">
+        </account-widget>
         </action-card>
       
         <!-- TODO: Implement this action card -->
         <!-- NOTE: This is a script -->
-        <action-card title="DAY 4: Kitty Items Market - Read Sale Collection IDs">
-      
+        <action-card title="DAY 4: Kitty Items Market - Read Sale Collection IDs"
+        description="This action card gets all Kitty Item IDs" 
+        action="kittyItemsMarketReadSaleCollectionIDs" 
+        method="get" fields="marketCollectionAddress">
+        <account-widget field="marketCollectionAddress" label="Market Collection Adress">
+        </account-widget>
         </action-card>
       
         <action-card title="DAY 4: Kitty Items Market - Read Sale Collection Length"
@@ -157,6 +173,23 @@ export default class FastFlowardHarness extends LitElement {
           <account-widget field="marketCollectionAddress" label="Market Collection Address">
           </account-widget>
         </action-card>
+
+        <!--w2q8-->
+        <action-card  title="DAY 5: Kibble - Burn Tokens"
+					            description="Burn Kibbles"
+					            action="kibbleBurnTokens"
+					            method="post"
+					            fields="signer amount">
+					<!--img
+						width="440"
+						height="300"
+						src="https://i.giphy.com/media/P7JmDW7IkB7TW/giphy.webp"
+					/-->
+					<account-widget field="signer" label="Signer">
+					</account-widget>
+					<text-widget field="amount" label="Amount" placeholder="30.0"
+					></text-widget>
+				</action-card>
 
       
       </page-body>
